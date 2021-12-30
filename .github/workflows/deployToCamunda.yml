@@ -19,6 +19,6 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deployToCamunda:latest
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deployToCamunda:latest
+        docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
 
