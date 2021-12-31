@@ -1,24 +1,33 @@
-name: Docker Image CI
+name: deployToCamunda
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@v2
-    - name: 'Build and push image'
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
-        docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
 
+      - name: Set up k8s context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+          # context: <context name>  #If left unspecified, current-context from kubeconfig is used as default
+        id: setcontext
+      - name: Run deployer
+        run: |
+          kubectl run deploytocamunda --namespace camunda-dev --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
+    
