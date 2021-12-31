@@ -29,5 +29,5 @@ jobs:
         id: setcontext
       - name: Run deployer
         run: |
-          kubectl run deploytocamunda-$(date +'%Y-%m-%d_%H:%M:%S') --namespace camunda-dev --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
+          kubectl run deploytocamunda-$(date +'%s') --namespace camunda-dev --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
     
