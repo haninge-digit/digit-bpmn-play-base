@@ -27,9 +27,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
           # context: <context name>  #If left unspecified, current-context from kubeconfig is used as default
         id: setcontext
-      - name: Set current date as env variable
-        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Run deployer
         run: |
-          kubectl run deploytocamunda-$NOW --namespace camunda-dev --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
+          kubectl run deploytocamunda-$(date +'%Y-%m-%d_%H:%M:%S') --namespace camunda-dev --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
     
