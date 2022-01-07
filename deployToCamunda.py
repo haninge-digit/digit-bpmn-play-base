@@ -4,7 +4,7 @@ import requests
 from requests_toolbelt import MultipartEncoder
 import json
 
-CAMUNDA = os.getenv('CAMUNDA','http://camunda-server-camunda-bpm-platform:8080/engine-rest')   # This is the default
+CAMUNDA = os.getenv('CAMUNDA','http://camunda-api-server:8080/engine-rest')   # This is the default
 
 def deployToCamunda():
     for (_, _, files) in os.walk('.', topdown=True):
