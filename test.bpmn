@@ -5,7 +5,7 @@
       <bpmn:outgoing>Flow_1pcziq6</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1pcziq6" sourceRef="StartEvent_1" targetRef="Activity_083dvky" />
-    <bpmn:serviceTask id="Activity_083dvky" name="loggToEmail" camunda:type="external" camunda:topic="loggToEmail">
+    <bpmn:serviceTask id="Activity_083dvky" name="testWorker" camunda:type="external" camunda:topic="testworker">
       <bpmn:incoming>Flow_1pcziq6</bpmn:incoming>
       <bpmn:outgoing>Flow_1cs0002</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -21,17 +21,17 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test">
-      <bpmndi:BPMNEdge id="Flow_1pcziq6_di" bpmnElement="Flow_1pcziq6">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
+      <bpmndi:BPMNEdge id="Flow_0c1k9oj_di" bpmnElement="Flow_0c1k9oj">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1cs0002_di" bpmnElement="Flow_1cs0002">
         <di:waypoint x="370" y="117" />
         <di:waypoint x="430" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0c1k9oj_di" bpmnElement="Flow_0c1k9oj">
-        <di:waypoint x="530" y="117" />
-        <di:waypoint x="592" y="117" />
+      <bpmndi:BPMNEdge id="Flow_1pcziq6_di" bpmnElement="Flow_1pcziq6">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
