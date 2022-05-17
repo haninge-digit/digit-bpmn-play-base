@@ -1,2 +1,1 @@
-requests==2.26.0
-requests-toolbelt==0.9.1
+zeebe-grpc==8.0.1

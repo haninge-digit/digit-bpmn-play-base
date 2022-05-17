@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bauujb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bauujb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
   <bpmn:process id="bygglovtemp" name="bygglovtemp" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0zrljq1</bpmn:outgoing>
@@ -9,25 +9,19 @@
       <bpmn:incoming>Flow_0uh4zla</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0uh4zla" sourceRef="Activity_12b4o7m" targetRef="Event_0kicn7g" />
-    <bpmn:serviceTask id="Activity_12b4o7m" name="castorPDFtest" camunda:type="external" camunda:topic="castorPDFtest">
+    <bpmn:serviceTask id="Activity_12b4o7m" name="castorPDFtest" camunda:type="external">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="castorPDFtest" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0zrljq1</bpmn:incoming>
       <bpmn:outgoing>Flow_0uh4zla</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0azf8iw</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0azf8iw" sourceRef="Activity_12b4o7m" targetRef="Activity_0c6mvgc" />
-    <bpmn:userTask id="Activity_0c6mvgc" name="To Håkan" camunda:assignee="hakan">
-      <bpmn:incoming>Flow_0azf8iw</bpmn:incoming>
-    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="bygglovtemp">
-      <bpmndi:BPMNEdge id="Flow_0azf8iw_di" bpmnElement="Flow_0azf8iw">
-        <di:waypoint x="630" y="117" />
-        <di:waypoint x="930" y="117" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0uh4zla_di" bpmnElement="Flow_0uh4zla">
         <di:waypoint x="630" y="117" />
-        <di:waypoint x="1182" y="117" />
+        <di:waypoint x="882" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zrljq1_di" bpmnElement="Flow_0zrljq1">
         <di:waypoint x="215" y="117" />
@@ -36,14 +30,11 @@
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0kicn7g_di" bpmnElement="Event_0kicn7g">
-        <dc:Bounds x="1182" y="99" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vaevvj_di" bpmnElement="Activity_0c6mvgc">
-        <dc:Bounds x="930" y="77" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0slfsi7_di" bpmnElement="Activity_12b4o7m">
         <dc:Bounds x="530" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kicn7g_di" bpmnElement="Event_0kicn7g">
+        <dc:Bounds x="882" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

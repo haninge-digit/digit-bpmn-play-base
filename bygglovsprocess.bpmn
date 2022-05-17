@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_158pmkg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_158pmkg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
   <bpmn:process id="Bygglovsprocess" name="Bygglovsprocess" isExecutable="true">
     <bpmn:startEvent id="BygglovsprocessStart" name="Bygglovsprocess Start">
       <bpmn:outgoing>Flow_0irm4s4</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0irm4s4" sourceRef="BygglovsprocessStart" targetRef="CastorIntegration" />
-    <bpmn:serviceTask id="CastorIntegration" name="Castor Integration" camunda:type="external" camunda:topic="CastorIntegration">
+    <bpmn:serviceTask id="CastorIntegration" name="Castor Integration" camunda:type="external">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="CastorIntegration" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0irm4s4</bpmn:incoming>
       <bpmn:outgoing>Flow_15m4vcu</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -16,13 +19,13 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Bygglovsprocess">
-      <bpmndi:BPMNEdge id="Flow_0irm4s4_di" bpmnElement="Flow_0irm4s4">
-        <di:waypoint x="215" y="97" />
-        <di:waypoint x="270" y="97" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_15m4vcu_di" bpmnElement="Flow_15m4vcu">
         <di:waypoint x="370" y="97" />
         <di:waypoint x="432" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0irm4s4_di" bpmnElement="Flow_0irm4s4">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="270" y="97" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="BygglovsprocessStart">
         <dc:Bounds x="179" y="79" width="36" height="36" />

@@ -2,7 +2,7 @@ name: deployToCamunda
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main camunda8]
 
 jobs:
   build:
@@ -17,8 +17,8 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest
+          docker build . --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda8:latest
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda8:latest
 
       - name: Set up k8s context
         uses: azure/k8s-set-context@v1
@@ -29,5 +29,5 @@ jobs:
         id: setcontext
       - name: Run deployer
         run: |
-          kubectl run deploytocamunda-$(date +'%s') --namespace camunda-dev --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda:latest 
+          kubectl run deploytocamunda-$(date +'%s') --namespace camunda8 --restart=Never --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/deploytocamunda8:latest 
     
