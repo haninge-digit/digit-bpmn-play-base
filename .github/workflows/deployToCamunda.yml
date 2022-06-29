@@ -2,7 +2,7 @@ name: deployToCamunda
 
 on:
   push:
-    branches: [ main camunda8]
+    branches: [ XXX ]
 
 jobs:
   build:
