@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0na8nis" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <bpmn:process id="approve_test" name="Approve workflow test" isExecutable="true">
+    <bpmn:documentation>Required parameters:
+approver = userid of the approver
+approver_mail = mail adress of the approver
+approved_mail = mail adress to send the approved message to</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0h0kuj5</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0h0kuj5" sourceRef="StartEvent_1" targetRef="send_info_for_approval" />
+    <bpmn:sendTask id="send_info_for_approval" name="Send info for approval">
+      <bpmn:documentation>Send mail to the approver.
+Mailtemplate to use is in mail_template
+Mail subject is in mail_subject
+</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="send_template_mail" retries="5" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="mail_template" value="https://raw.githubusercontent.com/haninge-digit/digit-public-jinja-templates/main/general_mail.html.jinja" />
+        </zeebe:taskHeaders>
+        <zeebe:ioMapping>
+          <zeebe:input source="= approver_mail" target="mail_recipient" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0h0kuj5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d06mbq</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_0d06mbq" sourceRef="send_info_for_approval" targetRef="wait_for_approval" />
+    <bpmn:userTask id="wait_for_approval" name="Wait for approval">
+      <bpmn:documentation>Wait here until approver logs in to the portal and approves the task.
+No info needs to be added here at the moment.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:assignmentDefinition assignee="= approver" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0d06mbq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ekzhgh</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1ekzhgh" sourceRef="wait_for_approval" targetRef="send_approved_message" />
+    <bpmn:sendTask id="send_approved_message" name="Send approved message">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="send_template_mail" retries="5" />
+        <zeebe:ioMapping>
+          <zeebe:input source="= approved_mail" target="mail_recipient" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="mail_template" value="empty_mail.html.jinja" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ekzhgh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v13s6s</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="Event_1pl6ksz">
+      <bpmn:incoming>Flow_0v13s6s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0v13s6s" sourceRef="send_approved_message" targetRef="Event_1pl6ksz" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="approve_test">
+      <bpmndi:BPMNEdge id="Flow_0h0kuj5_di" bpmnElement="Flow_0h0kuj5">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="270" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d06mbq_di" bpmnElement="Flow_0d06mbq">
+        <di:waypoint x="370" y="97" />
+        <di:waypoint x="430" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ekzhgh_di" bpmnElement="Flow_1ekzhgh">
+        <di:waypoint x="530" y="97" />
+        <di:waypoint x="590" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v13s6s_di" bpmnElement="Flow_0v13s6s">
+        <di:waypoint x="690" y="97" />
+        <di:waypoint x="752" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ttoztc_di" bpmnElement="send_info_for_approval">
+        <dc:Bounds x="270" y="57" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yxdqwa_di" bpmnElement="wait_for_approval">
+        <dc:Bounds x="430" y="57" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0c9o1lp_di" bpmnElement="send_approved_message">
+        <dc:Bounds x="590" y="57" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pl6ksz_di" bpmnElement="Event_1pl6ksz">
+        <dc:Bounds x="752" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
